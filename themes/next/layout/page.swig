@@ -75,6 +75,7 @@
       {#####################}
     </div>
     {% include '_partials/page/breadcrumb.swig' %}
+    
     {######################}
     {### END PAGE BLOCK ###}
     {######################}
@@ -89,3 +90,4 @@
 {% block script_extra %}
   {% include '_scripts/pages/post-details.swig' %}
 {% endblock %}
+

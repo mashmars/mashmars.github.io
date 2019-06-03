@@ -22,7 +22,7 @@ git clone -b source https://github.com/yourname/yourname.github.io.git
 ```
 git add .
 git commit
-git push origin source
+git push origin master:source
 ```
 #### 发布静态文件
 ```

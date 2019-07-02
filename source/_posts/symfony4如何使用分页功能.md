@@ -1,8 +1,8 @@
 ---
 title: symfony4如何使用分页功能
 date: 2019-04-01 13:36:32
-tags: symfony4 
-categories: symfony4
+tags: symfony
+categories: symfony
 ---
 
 ## 描述

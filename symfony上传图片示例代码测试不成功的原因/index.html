@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.2">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.2">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.2">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.2" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.1.2',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="想起之前按着symfony文档测试上传文件的示例上传没有成功，在此仅记录下以避免再次踩坑  实体添加文件字段123456789101112131415161718192021222324252627282930// src/Entity/Product.phpnamespace App\Entity;use Doctrine\ORM\Mapping as ORM;use Symfony\Comp">
+<meta name="keywords" content="symfony">
+<meta property="og:type" content="article">
+<meta property="og:title" content="symfony上传图片示例代码测试不成功的原因">
+<meta property="og:url" content="http://yoursite.com/symfony上传图片示例代码测试不成功的原因/index.html">
+<meta property="og:site_name" content="马帅的博客">
+<meta property="og:description" content="想起之前按着symfony文档测试上传文件的示例上传没有成功，在此仅记录下以避免再次踩坑  实体添加文件字段123456789101112131415161718192021222324252627282930// src/Entity/Product.phpnamespace App\Entity;use Doctrine\ORM\Mapping as ORM;use Symfony\Comp">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-12-29T01:15:43.407Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="symfony上传图片示例代码测试不成功的原因">
+<meta name="twitter:description" content="想起之前按着symfony文档测试上传文件的示例上传没有成功，在此仅记录下以避免再次踩坑  实体添加文件字段123456789101112131415161718192021222324252627282930// src/Entity/Product.phpnamespace App\Entity;use Doctrine\ORM\Mapping as ORM;use Symfony\Comp">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://yoursite.com/symfony上传图片示例代码测试不成功的原因/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>symfony上传图片示例代码测试不成功的原因 | 马帅的博客</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">马帅的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">mashuai</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+    <div class="reading-progress-bar"></div>
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/symfony上传图片示例代码测试不成功的原因/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="mashui">
+      <meta itemprop="description" content="马帅的博客">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="马帅的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">symfony上传图片示例代码测试不成功的原因
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-06-13 10:54:28" itemprop="dateCreated datePublished" datetime="2019-06-13T10:54:28+08:00">2019-06-13</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-12-29 09:15:43" itemprop="dateModified" datetime="2020-12-29T09:15:43+08:00">2020-12-29</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/symfony/" itemprop="url" rel="index"><span itemprop="name">symfony</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
+                <a href="/symfony上传图片示例代码测试不成功的原因/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/symfony上传图片示例代码测试不成功的原因/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+            <span id="/symfony上传图片示例代码测试不成功的原因/" class="leancloud_visitors" data-flag-title="symfony上传图片示例代码测试不成功的原因">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读次数：</span>
+              
+                <span class="leancloud-visitors-count"></span>
+            </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>想起之前按着symfony文档测试上传文件的示例上传没有成功，在此仅记录下以避免再次踩坑</p>
+</blockquote>
+<h4 id="实体添加文件字段"><a href="#实体添加文件字段" class="headerlink" title="实体添加文件字段"></a>实体添加文件字段</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">// src/Entity/Product.php</span><br><span class="line">namespace App\Entity;</span><br><span class="line"></span><br><span class="line">use Doctrine\ORM\Mapping as ORM;</span><br><span class="line">use Symfony\Component\Validator\Constraints as Assert;</span><br><span class="line"></span><br><span class="line">class Product</span><br><span class="line">&#123;</span><br><span class="line">    // ...</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * @ORM\Column(type=&quot;string&quot;)</span><br><span class="line">     *</span><br><span class="line">     * @Assert\NotBlank(message=&quot;Please, upload the product brochure as a PDF file.&quot;)</span><br><span class="line">     * @Assert\File(mimeTypes=&#123; &quot;application/pdf&quot; &#125;)</span><br><span class="line">     */</span><br><span class="line">    private $brochure;</span><br><span class="line"></span><br><span class="line">    public function getBrochure()</span><br><span class="line">    &#123;</span><br><span class="line">        return $this-&gt;brochure;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public function setBrochure($brochure)</span><br><span class="line">    &#123;</span><br><span class="line">        $this-&gt;brochure = $brochure;</span><br><span class="line"></span><br><span class="line">        return $this;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="formType添加相应字段"><a href="#formType添加相应字段" class="headerlink" title="formType添加相应字段"></a>formType添加相应字段</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">// src/Form/ProductType.php</span><br><span class="line">namespace App\Form;</span><br><span class="line"></span><br><span class="line">use App\Entity\Product;</span><br><span class="line">use Symfony\Component\Form\AbstractType;</span><br><span class="line">use Symfony\Component\Form\Extension\Core\Type\FileType;</span><br><span class="line">use Symfony\Component\Form\FormBuilderInterface;</span><br><span class="line">use Symfony\Component\OptionsResolver\OptionsResolver;</span><br><span class="line"></span><br><span class="line">class ProductType extends AbstractType</span><br><span class="line">&#123;</span><br><span class="line">    public function buildForm(FormBuilderInterface $builder, array $options)</span><br><span class="line">    &#123;</span><br><span class="line">        $builder</span><br><span class="line">            // ...</span><br><span class="line">            -&gt;add(&apos;brochure&apos;, FileType::class, [&apos;label&apos; =&gt; &apos;Brochure (PDF file)&apos;])</span><br><span class="line">            // ...</span><br><span class="line">        ;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public function configureOptions(OptionsResolver $resolver)</span><br><span class="line">    &#123;</span><br><span class="line">        $resolver-&gt;setDefaults([</span><br><span class="line">            &apos;data_class&apos; =&gt; Product::class,</span><br><span class="line">        ]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="控制器提交代码"><a href="#控制器提交代码" class="headerlink" title="控制器提交代码"></a>控制器提交代码</h4><p>此处将<code>$file = $product-&gt;getBrochure();</code>(标记1) 更改为 <code>$file = $form-&gt;get(&#39;brochure&#39;)-&gt;getData();</code>(标记2)。<br>因为 orm获取的brochure是对应该字段的类型 字符串<br>而 form-&gt;get()-&gt;getData获取的才是实际的UploadedFile对象</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line">// src/Controller/ProductController.php</span><br><span class="line">namespace App\Controller;</span><br><span class="line"></span><br><span class="line">use App\Entity\Product;</span><br><span class="line">use App\Form\ProductType;</span><br><span class="line">use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;</span><br><span class="line">use Symfony\Component\HttpFoundation\File\Exception\FileException;</span><br><span class="line">use Symfony\Component\HttpFoundation\Request;</span><br><span class="line">use Symfony\Component\Routing\Annotation\Route;</span><br><span class="line"></span><br><span class="line">class ProductController extends AbstractController</span><br><span class="line">&#123;</span><br><span class="line">    /**</span><br><span class="line">     * @Route(&quot;/product/new&quot;, name=&quot;app_product_new&quot;)</span><br><span class="line">     */</span><br><span class="line">    public function new(Request $request)</span><br><span class="line">    &#123;</span><br><span class="line">        $product = new Product();</span><br><span class="line">        $form = $this-&gt;createForm(ProductType::class, $product);</span><br><span class="line">        $form-&gt;handleRequest($request);</span><br><span class="line"></span><br><span class="line">        if ($form-&gt;isSubmitted() &amp;&amp; $form-&gt;isValid()) &#123;</span><br><span class="line">            // $file stores the uploaded PDF file</span><br><span class="line">            /** @var Symfony\Component\HttpFoundation\File\UploadedFile $file */</span><br><span class="line">            $file = $product-&gt;getBrochure();</span><br><span class="line"></span><br><span class="line">            $fileName = $this-&gt;generateUniqueFileName().&apos;.&apos;.$file-&gt;guessExtension();</span><br><span class="line"></span><br><span class="line">            // Move the file to the directory where brochures are stored</span><br><span class="line">            try &#123;</span><br><span class="line">                $file-&gt;move(</span><br><span class="line">                    $this-&gt;getParameter(&apos;brochures_directory&apos;),</span><br><span class="line">                    $fileName</span><br><span class="line">                );</span><br><span class="line">            &#125; catch (FileException $e) &#123;</span><br><span class="line">                // ... handle exception if something happens during file upload</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            // updates the &apos;brochure&apos; property to store the PDF file name</span><br><span class="line">            // instead of its contents</span><br><span class="line">            $product-&gt;setBrochure($fileName);</span><br><span class="line"></span><br><span class="line">            // ... persist the $product variable or any other work</span><br><span class="line"></span><br><span class="line">            return $this-&gt;redirect($this-&gt;generateUrl(&apos;app_product_list&apos;));</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        return $this-&gt;render(&apos;product/new.html.twig&apos;, [</span><br><span class="line">            &apos;form&apos; =&gt; $form-&gt;createView(),</span><br><span class="line">        ]);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * @return string</span><br><span class="line">     */</span><br><span class="line">    private function generateUniqueFileName()</span><br><span class="line">    &#123;</span><br><span class="line">        // md5() reduces the similarity of the file names generated by</span><br><span class="line">        // uniqid(), which is based on timestamps</span><br><span class="line">        return md5(uniqid());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/symfony/" rel="tag"># symfony</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/mongodb-basic/" rel="next" title="mongodb-basic">
+                <i class="fa fa-chevron-left"></i> mongodb-basic
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/symfony-dependencyinjection-component/" rel="prev" title="symfony-dependencyinjection-component">
+                symfony-dependencyinjection-component <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+  <div class="post-spread">
+    
+    <!--MOB SHARE BEGIN-->
+<div class="-mob-share-ui-button -mob-share-open">分享</div>
+<div class="-mob-share-ui" style="display: none">
+    <ul class="-mob-share-list">
+        <li class="-mob-share-weibo"><p>新浪微博</p></li>
+        <li class="-mob-share-tencentweibo"><p>腾讯微博</p></li>
+        <li class="-mob-share-qzone"><p>QQ空间</p></li>
+        <li class="-mob-share-qq"><p>QQ好友</p></li>
+        <li class="-mob-share-weixin"><p>微信</p></li>
+        <li class="-mob-share-douban"><p>豆瓣</p></li>
+        <li class="-mob-share-renren"><p>人人网</p></li>
+        <li class="-mob-share-kaixin"><p>开心网</p></li>
+        <li class="-mob-share-facebook"><p>Facebook</p></li>
+        <li class="-mob-share-twitter"><p>Twitter</p></li>
+        <li class="-mob-share-pocket"><p>Pocket</p></li>
+        <li class="-mob-share-google"><p>Google+</p></li>
+        <li class="-mob-share-youdao"><p>有道云笔记</p></li>
+        <li class="-mob-share-mingdao"><p>明道</p></li>
+        <li class="-mob-share-pengyou"><p>朋友网</p></li>
+        <li class="-mob-share-tumblr"><p>Tumblr</p></li>
+        <li class="-mob-share-instapaper"><p>Instapaper</p></li>
+        <li class="-mob-share-linkedin"><p>LinkedIn</p></li>
+    </ul>
+    <div class="-mob-share-close">取消</div>
+</div>
+<div class="-mob-share-ui-bg"></div>
+<script id="-mob-share" src="http://f1.webshare.mob.com/code/mob-share.js?appkey=2ab754fc30e82"></script>
+<!--MOB SHARE END-->
+    
+  </div>
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">mashui</p>
+              <div class="site-description motion-element" itemprop="description">马帅的博客</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">24</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">14</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#实体添加文件字段"><span class="nav-number">1.</span> <span class="nav-text">实体添加文件字段</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#formType添加相应字段"><span class="nav-number">2.</span> <span class="nav-text">formType添加相应字段</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#控制器提交代码"><span class="nav-number">3.</span> <span class="nav-text">控制器提交代码</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">mashui</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.1.2</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/reading_progress/reading_progress.js"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.2"></script>
+
+  <script src="/js/motion.js?v=7.1.2"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.1.2"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.1.2"></script>
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.2"></script>
+<script src="/js/post-details.js?v=7.1.2"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.2"></script>
+
+
+  
+
+  
+
+  
+
+  
+  
+
+<script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
+
+
+
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+<script>
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: '4dvlr87DfUYTGxLs8YSgVpPG-gzGzoHsz',
+    appKey: 'D75I8i7CH3rcTJ3mBYgzPL2z',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: 'zh-cn' || 'zh-cn'
+  });
+</script>
+
+
+
+
+  
+
+
+  
+
+
+
+
+  
+  
+  <script>
+    
+    function addCount(Counter) {
+      var $visitors = $('.leancloud_visitors');
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+
+      Counter('get', '/classes/Counter', { where: JSON.stringify({ url }) })
+        .done(function({ results }) {
+          if (results.length > 0) {
+            var counter = results[0];
+            
+            Counter('put', '/classes/Counter/' + counter.objectId, JSON.stringify({ time: { '__op': 'Increment', 'amount': 1 } }))
+            
+              .done(function() {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.time + 1);
+              })
+            
+              .fail(function ({ responseJSON }) {
+                console.log('Failed to save Visitor num, with error message: ' + responseJSON.error);
+              })
+          } else {
+            
+              Counter('post', '/classes/Counter', JSON.stringify({ title: title, url: url, time: 1 }))
+                .done(function() {
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(1);
+                })
+                .fail(function() {
+                  console.log('Failed to create');
+                });
+            
+          }
+        })
+        .fail(function ({ responseJSON }) {
+          console.log('LeanCloud Counter Error: ' + responseJSON.code + ' ' + responseJSON.error);
+        });
+    }
+    
+
+    $(function() {
+      $.get('https://app-router.leancloud.cn/2/route?appId=' + '4dvlr87DfUYTGxLs8YSgVpPG-gzGzoHsz')
+        .done(function({ api_server }) {
+          var Counter = function(method, url, data) {
+            return $.ajax({
+              method: method,
+              url: 'https://' + api_server + '/1.1' + url,
+              headers: {
+                'X-LC-Id': '4dvlr87DfUYTGxLs8YSgVpPG-gzGzoHsz',
+                'X-LC-Key': 'D75I8i7CH3rcTJ3mBYgzPL2z',
+                'Content-Type': 'application/json',
+              },
+              data: data
+            });
+          };
+          
+            addCount(Counter);
+          
+        });
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

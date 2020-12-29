@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.2">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.2">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.2">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.2" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.1.2',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="添加百度统计和文章阅读量开启hexo图片功能使用hexo3.0以上的资源引用功能123站点配置 _config.yml开启 post_asset_folder: truehexo new title 的同时会生成一个同名文件夹 ，把相关图片放在这个目录下&amp;#123;% asset_img slug [title] %&amp;#125;  引用图片 使用插件方式12npm install hexo-ass">
+<meta name="keywords" content="hexo,next">
+<meta property="og:type" content="article">
+<meta property="og:title" content="next添加百度统计和阅读量">
+<meta property="og:url" content="http://yoursite.com/next添加百度统计和阅读量/index.html">
+<meta property="og:site_name" content="马帅的博客">
+<meta property="og:description" content="添加百度统计和文章阅读量开启hexo图片功能使用hexo3.0以上的资源引用功能123站点配置 _config.yml开启 post_asset_folder: truehexo new title 的同时会生成一个同名文件夹 ，把相关图片放在这个目录下&amp;#123;% asset_img slug [title] %&amp;#125;  引用图片 使用插件方式12npm install hexo-ass">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/next添加百度统计和阅读量/appkey.png">
+<meta property="og:image" content="http://yoursite.com/next添加百度统计和阅读量/classes.png">
+<meta property="og:image" content="http://yoursite.com/next添加百度统计和阅读量/yuming.png">
+<meta property="og:image" content="http://yoursite.com/next添加百度统计和阅读量/result.png">
+<meta property="og:updated_time" content="2020-12-29T01:15:43.407Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="next添加百度统计和阅读量">
+<meta name="twitter:description" content="添加百度统计和文章阅读量开启hexo图片功能使用hexo3.0以上的资源引用功能123站点配置 _config.yml开启 post_asset_folder: truehexo new title 的同时会生成一个同名文件夹 ，把相关图片放在这个目录下&amp;#123;% asset_img slug [title] %&amp;#125;  引用图片 使用插件方式12npm install hexo-ass">
+<meta name="twitter:image" content="http://yoursite.com/next添加百度统计和阅读量/appkey.png">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://yoursite.com/next添加百度统计和阅读量/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>next添加百度统计和阅读量 | 马帅的博客</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">马帅的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">mashuai</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+    <div class="reading-progress-bar"></div>
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/next添加百度统计和阅读量/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="mashui">
+      <meta itemprop="description" content="马帅的博客">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="马帅的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">next添加百度统计和阅读量
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-04-03 13:17:10" itemprop="dateCreated datePublished" datetime="2019-04-03T13:17:10+08:00">2019-04-03</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-12-29 09:15:43" itemprop="dateModified" datetime="2020-12-29T09:15:43+08:00">2020-12-29</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/hexo/" itemprop="url" rel="index"><span itemprop="name">hexo</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
+                <a href="/next添加百度统计和阅读量/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/next添加百度统计和阅读量/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+            <span id="/next添加百度统计和阅读量/" class="leancloud_visitors" data-flag-title="next添加百度统计和阅读量">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读次数：</span>
+              
+                <span class="leancloud-visitors-count"></span>
+            </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="添加百度统计和文章阅读量"><a href="#添加百度统计和文章阅读量" class="headerlink" title="添加百度统计和文章阅读量"></a>添加百度统计和文章阅读量</h1><h3 id="开启hexo图片功能"><a href="#开启hexo图片功能" class="headerlink" title="开启hexo图片功能"></a>开启hexo图片功能</h3><h4 id="使用hexo3-0以上的资源引用功能"><a href="#使用hexo3-0以上的资源引用功能" class="headerlink" title="使用hexo3.0以上的资源引用功能"></a>使用hexo3.0以上的资源引用功能</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">站点配置 _config.yml开启 post_asset_folder: true</span><br><span class="line">hexo new title 的同时会生成一个同名文件夹 ，把相关图片放在这个目录下</span><br><span class="line">&#123;% asset_img slug [title] %&#125;  引用图片</span><br></pre></td></tr></table></figure>
+<h4 id="使用插件方式"><a href="#使用插件方式" class="headerlink" title="使用插件方式"></a>使用插件方式</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-asset-image --save</span><br><span class="line">[图片上传失败...(image-43fc5f-1510018038370)]</span><br></pre></td></tr></table></figure>
+<h4 id="markdown-语法"><a href="#markdown-语法" class="headerlink" title="markdown 语法"></a>markdown 语法</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">![](/path/img)</span><br></pre></td></tr></table></figure>
+<h3 id="打开百度统计-注册登录-添加应用并找到代码-复制到-主题配置文件-config-yml-baidu-analytics-id"><a href="#打开百度统计-注册登录-添加应用并找到代码-复制到-主题配置文件-config-yml-baidu-analytics-id" class="headerlink" title="打开百度统计 注册登录  添加应用并找到代码 复制到 主题配置文件_config.yml baidu_analytics: [id]"></a>打开百度统计 注册登录  添加应用并找到代码 复制到 主题配置文件_config.yml baidu_analytics: [id]</h3><h3 id="文章阅读量"><a href="#文章阅读量" class="headerlink" title="文章阅读量"></a>文章阅读量</h3><h4 id="打开leancloud-注册登录-并创建应用-找到appkey等信息-如图"><a href="#打开leancloud-注册登录-并创建应用-找到appkey等信息-如图" class="headerlink" title="打开leancloud 注册登录 并创建应用 找到appkey等信息 如图"></a>打开leancloud 注册登录 并创建应用 找到appkey等信息 如图</h4><img src="/next添加百度统计和阅读量/appkey.png">
+<h4 id="复制app-id-app-key到站点配置文件-leancloud-visitors下的配置项"><a href="#复制app-id-app-key到站点配置文件-leancloud-visitors下的配置项" class="headerlink" title="复制app_id,app_key到站点配置文件 leancloud_visitors下的配置项"></a>复制app_id,app_key到站点配置文件 leancloud_visitors下的配置项</h4><h4 id="创建存储classes"><a href="#创建存储classes" class="headerlink" title="创建存储classes"></a>创建存储classes</h4><img src="/next添加百度统计和阅读量/classes.png">
+<h4 id="配置安全域名"><a href="#配置安全域名" class="headerlink" title="配置安全域名"></a>配置安全域名</h4><img src="/next添加百度统计和阅读量/yuming.png">
+<h4 id="打开页面查看效果"><a href="#打开页面查看效果" class="headerlink" title="打开页面查看效果"></a>打开页面查看效果</h4><img src="/next添加百度统计和阅读量/result.png">
+<h1 id="附件-添加评论功能"><a href="#附件-添加评论功能" class="headerlink" title="附件 添加评论功能"></a>附件 添加评论功能</h1><h3 id="使用valine"><a href="#使用valine" class="headerlink" title="使用valine"></a>使用valine</h3><h4 id="为什么使用valine"><a href="#为什么使用valine" class="headerlink" title="为什么使用valine?"></a>为什么使用valine?</h4><blockquote><p>因为和leadcloud共用appid appkey</p>
+</blockquote>
+<h4 id="开启valine"><a href="#开启valine" class="headerlink" title="开启valine"></a>开启valine</h4><blockquote><p>找到主题配置文件 valine 开启 enable: true 设置appid appkey 即可</p>
+</blockquote>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/hexo/" rel="tag"># hexo</a>
+          
+            <a href="/tags/next/" rel="tag"># next</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/symfony4上传文件/" rel="next" title="symfony4上传文件">
+                <i class="fa fa-chevron-left"></i> symfony4上传文件
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/php视频上传ffmpeg生成缩略图/" rel="prev" title="php视频上传ffmpeg生成缩略图">
+                php视频上传ffmpeg生成缩略图 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+  <div class="post-spread">
+    
+    <!--MOB SHARE BEGIN-->
+<div class="-mob-share-ui-button -mob-share-open">分享</div>
+<div class="-mob-share-ui" style="display: none">
+    <ul class="-mob-share-list">
+        <li class="-mob-share-weibo"><p>新浪微博</p></li>
+        <li class="-mob-share-tencentweibo"><p>腾讯微博</p></li>
+        <li class="-mob-share-qzone"><p>QQ空间</p></li>
+        <li class="-mob-share-qq"><p>QQ好友</p></li>
+        <li class="-mob-share-weixin"><p>微信</p></li>
+        <li class="-mob-share-douban"><p>豆瓣</p></li>
+        <li class="-mob-share-renren"><p>人人网</p></li>
+        <li class="-mob-share-kaixin"><p>开心网</p></li>
+        <li class="-mob-share-facebook"><p>Facebook</p></li>
+        <li class="-mob-share-twitter"><p>Twitter</p></li>
+        <li class="-mob-share-pocket"><p>Pocket</p></li>
+        <li class="-mob-share-google"><p>Google+</p></li>
+        <li class="-mob-share-youdao"><p>有道云笔记</p></li>
+        <li class="-mob-share-mingdao"><p>明道</p></li>
+        <li class="-mob-share-pengyou"><p>朋友网</p></li>
+        <li class="-mob-share-tumblr"><p>Tumblr</p></li>
+        <li class="-mob-share-instapaper"><p>Instapaper</p></li>
+        <li class="-mob-share-linkedin"><p>LinkedIn</p></li>
+    </ul>
+    <div class="-mob-share-close">取消</div>
+</div>
+<div class="-mob-share-ui-bg"></div>
+<script id="-mob-share" src="http://f1.webshare.mob.com/code/mob-share.js?appkey=2ab754fc30e82"></script>
+<!--MOB SHARE END-->
+    
+  </div>
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">mashui</p>
+              <div class="site-description motion-element" itemprop="description">马帅的博客</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">24</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">14</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#添加百度统计和文章阅读量"><span class="nav-number">1.</span> <span class="nav-text">添加百度统计和文章阅读量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#开启hexo图片功能"><span class="nav-number">1.0.1.</span> <span class="nav-text">开启hexo图片功能</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#使用hexo3-0以上的资源引用功能"><span class="nav-number">1.0.1.1.</span> <span class="nav-text">使用hexo3.0以上的资源引用功能</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用插件方式"><span class="nav-number">1.0.1.2.</span> <span class="nav-text">使用插件方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#markdown-语法"><span class="nav-number">1.0.1.3.</span> <span class="nav-text">markdown 语法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#打开百度统计-注册登录-添加应用并找到代码-复制到-主题配置文件-config-yml-baidu-analytics-id"><span class="nav-number">1.0.2.</span> <span class="nav-text">打开百度统计 注册登录  添加应用并找到代码 复制到 主题配置文件_config.yml baidu_analytics: [id]</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文章阅读量"><span class="nav-number">1.0.3.</span> <span class="nav-text">文章阅读量</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#打开leancloud-注册登录-并创建应用-找到appkey等信息-如图"><span class="nav-number">1.0.3.1.</span> <span class="nav-text">打开leancloud 注册登录 并创建应用 找到appkey等信息 如图</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#复制app-id-app-key到站点配置文件-leancloud-visitors下的配置项"><span class="nav-number">1.0.3.2.</span> <span class="nav-text">复制app_id,app_key到站点配置文件 leancloud_visitors下的配置项</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#创建存储classes"><span class="nav-number">1.0.3.3.</span> <span class="nav-text">创建存储classes</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置安全域名"><span class="nav-number">1.0.3.4.</span> <span class="nav-text">配置安全域名</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#打开页面查看效果"><span class="nav-number">1.0.3.5.</span> <span class="nav-text">打开页面查看效果</span></a></li></ol></li></ol></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#附件-添加评论功能"><span class="nav-number">2.</span> <span class="nav-text">附件 添加评论功能</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用valine"><span class="nav-number">2.0.1.</span> <span class="nav-text">使用valine</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#为什么使用valine"><span class="nav-number">2.0.1.1.</span> <span class="nav-text">为什么使用valine?</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#开启valine"><span class="nav-number">2.0.1.2.</span> <span class="nav-text">开启valine</span></a></li></ol></li></ol></li></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">mashui</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.1.2</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/reading_progress/reading_progress.js"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.2"></script>
+
+  <script src="/js/motion.js?v=7.1.2"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.1.2"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.1.2"></script>
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.2"></script>
+<script src="/js/post-details.js?v=7.1.2"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.2"></script>
+
+
+  
+
+  
+
+  
+
+  
+  
+
+<script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
+
+
+
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+<script>
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: '4dvlr87DfUYTGxLs8YSgVpPG-gzGzoHsz',
+    appKey: 'D75I8i7CH3rcTJ3mBYgzPL2z',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: 'zh-cn' || 'zh-cn'
+  });
+</script>
+
+
+
+
+  
+
+
+  
+
+
+
+
+  
+  
+  <script>
+    
+    function addCount(Counter) {
+      var $visitors = $('.leancloud_visitors');
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+
+      Counter('get', '/classes/Counter', { where: JSON.stringify({ url }) })
+        .done(function({ results }) {
+          if (results.length > 0) {
+            var counter = results[0];
+            
+            Counter('put', '/classes/Counter/' + counter.objectId, JSON.stringify({ time: { '__op': 'Increment', 'amount': 1 } }))
+            
+              .done(function() {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.time + 1);
+              })
+            
+              .fail(function ({ responseJSON }) {
+                console.log('Failed to save Visitor num, with error message: ' + responseJSON.error);
+              })
+          } else {
+            
+              Counter('post', '/classes/Counter', JSON.stringify({ title: title, url: url, time: 1 }))
+                .done(function() {
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(1);
+                })
+                .fail(function() {
+                  console.log('Failed to create');
+                });
+            
+          }
+        })
+        .fail(function ({ responseJSON }) {
+          console.log('LeanCloud Counter Error: ' + responseJSON.code + ' ' + responseJSON.error);
+        });
+    }
+    
+
+    $(function() {
+      $.get('https://app-router.leancloud.cn/2/route?appId=' + '4dvlr87DfUYTGxLs8YSgVpPG-gzGzoHsz')
+        .done(function({ api_server }) {
+          var Counter = function(method, url, data) {
+            return $.ajax({
+              method: method,
+              url: 'https://' + api_server + '/1.1' + url,
+              headers: {
+                'X-LC-Id': '4dvlr87DfUYTGxLs8YSgVpPG-gzGzoHsz',
+                'X-LC-Key': 'D75I8i7CH3rcTJ3mBYgzPL2z',
+                'Content-Type': 'application/json',
+              },
+              data: data
+            });
+          };
+          
+            addCount(Counter);
+          
+        });
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

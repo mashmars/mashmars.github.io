@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.2">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.2">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.2">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.2" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.1.2',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="服务容器因为多种原因需要被编译。比如解析参数和去掉不用的服务它通过运行 $container-&amp;gt;compile()进行编译，如果不编译比如无法解析参数 在config下创建config.yaml增加该一些参数配置如果不编辑会提示 There is no extension able to load the configuration for &amp;quot;mash&amp;quot;   创建参数配">
+<meta name="keywords" content="symfony,di">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Compiling-the-Container">
+<meta property="og:url" content="http://yoursite.com/Compiling-the-Container/index.html">
+<meta property="og:site_name" content="马帅的博客">
+<meta property="og:description" content="服务容器因为多种原因需要被编译。比如解析参数和去掉不用的服务它通过运行 $container-&amp;gt;compile()进行编译，如果不编译比如无法解析参数 在config下创建config.yaml增加该一些参数配置如果不编辑会提示 There is no extension able to load the configuration for &amp;quot;mash&amp;quot;   创建参数配">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-12-29T01:15:43.403Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Compiling-the-Container">
+<meta name="twitter:description" content="服务容器因为多种原因需要被编译。比如解析参数和去掉不用的服务它通过运行 $container-&amp;gt;compile()进行编译，如果不编译比如无法解析参数 在config下创建config.yaml增加该一些参数配置如果不编辑会提示 There is no extension able to load the configuration for &amp;quot;mash&amp;quot;   创建参数配">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://yoursite.com/Compiling-the-Container/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Compiling-the-Container | 马帅的博客</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">马帅的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">mashuai</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+    <div class="reading-progress-bar"></div>
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/Compiling-the-Container/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="mashui">
+      <meta itemprop="description" content="马帅的博客">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="马帅的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Compiling-the-Container
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-07-02 11:33:01" itemprop="dateCreated datePublished" datetime="2019-07-02T11:33:01+08:00">2019-07-02</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-12-29 09:15:43" itemprop="dateModified" datetime="2020-12-29T09:15:43+08:00">2020-12-29</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/symfony/" itemprop="url" rel="index"><span itemprop="name">symfony</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
+                <a href="/Compiling-the-Container/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/Compiling-the-Container/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+            <span id="/Compiling-the-Container/" class="leancloud_visitors" data-flag-title="Compiling-the-Container">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读次数：</span>
+              
+                <span class="leancloud-visitors-count"></span>
+            </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>服务容器因为多种原因需要被编译。比如解析参数和去掉不用的服务<br>它通过运行 <code>$container-&gt;compile()</code>进行编译，如果不编译<br>比如无法解析参数 在config下创建config.yaml增加该一些参数配置<br>如果不编辑会提示 <code>There is no extension able to load the configuration for &quot;mash&quot;</code> </p>
+</blockquote>
+<h3 id="创建参数配置文件"><a href="#创建参数配置文件" class="headerlink" title="创建参数配置文件"></a>创建参数配置文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># src/config/config.yaml</span><br><span class="line">mash:</span><br><span class="line">  foo: fooValue</span><br><span class="line">  bar: barValue</span><br></pre></td></tr></table></figure>
+<h3 id="创建扩展"><a href="#创建扩展" class="headerlink" title="创建扩展"></a>创建扩展</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"># src/MashExtension.php</span><br><span class="line">&lt;?php</span><br><span class="line">namespace App\Mash;</span><br><span class="line"></span><br><span class="line">use Symfony\Component\Config\FileLocator;</span><br><span class="line">use Symfony\Component\DependencyInjection\Loader;</span><br><span class="line">use Symfony\Component\DependencyInjection\Extension\ExtensionInterface;</span><br><span class="line">use Symfony\Component\DependencyInjection\ContainerBuilder;</span><br><span class="line"></span><br><span class="line">class MashExtension implements  ExtensionInterface</span><br><span class="line">&#123;</span><br><span class="line">    public function load(array $configs, ContainerBuilder $container)</span><br><span class="line">    &#123;</span><br><span class="line">        $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . &apos;/config&apos;));</span><br><span class="line">        $loader-&gt;load(&apos;services.yaml&apos;);</span><br><span class="line">        </span><br><span class="line">        /**</span><br><span class="line">         * 此时 已经从编译容器处获得了外部配置参数</span><br><span class="line">         * 上面加载了服务 可以处理服务参数了</span><br><span class="line">         */</span><br><span class="line">        var_dump($configs);exit;</span><br><span class="line">        /**</span><br><span class="line">         * array [ 0 =&gt; [</span><br><span class="line">             &apos;foo&apos; =&gt; &apos;fooValue&apos;, &apos;bar&apos; =&gt; &apos;barValue&apos;</span><br><span class="line">         ] ]</span><br><span class="line">         */</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public function getAlias()</span><br><span class="line">    &#123;</span><br><span class="line">        return &apos;mash&apos;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * Returns the namespace to be used for this extension (XML namespace).</span><br><span class="line">     *</span><br><span class="line">     * @return string The XML namespace</span><br><span class="line">     */</span><br><span class="line">    public function getNamespace()</span><br><span class="line">    &#123;&#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * Returns the base path for the XSD files.</span><br><span class="line">     *</span><br><span class="line">     * @return string The XSD base path</span><br><span class="line">     */</span><br><span class="line">    public function getXsdValidationBasePath()</span><br><span class="line">    &#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="index-php-只有在编译容器时才处理其中的值"><a href="#index-php-只有在编译容器时才处理其中的值" class="headerlink" title="index.php 只有在编译容器时才处理其中的值"></a>index.php 只有在编译容器时才处理其中的值</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">require_once __DIR__ . &apos;/vendor/autoload.php&apos;;</span><br><span class="line"></span><br><span class="line">use Symfony\Component\DependencyInjection\ContainerBuilder;</span><br><span class="line">use Symfony\Component\Config\FileLocator;</span><br><span class="line">use Symfony\Component\DependencyInjection\Loader;</span><br><span class="line">use App\Mash\MashExtension;</span><br><span class="line"></span><br><span class="line">$containerBuilder = new ContainerBuilder();</span><br><span class="line">$containerBuilder-&gt;registerExtension(new MashExtension);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">$loader = new Loader\YamlFileLoader($containerBuilder, new FileLocator(__DIR__ . &apos;/src/config&apos;));</span><br><span class="line">$loader-&gt;load(&apos;config.yaml&apos;);</span><br><span class="line"></span><br><span class="line">$containerBuilder-&gt;compile(); # 若无 error There is no extension able to load the configuration for &quot;mash&quot;</span><br></pre></td></tr></table></figure>
+<h3 id="虽然您可以手动管理合并不同的文件，但使用Config组件合并和验证配置值要好得多。使用配置处理，您可以通过以下方式访问配置值："><a href="#虽然您可以手动管理合并不同的文件，但使用Config组件合并和验证配置值要好得多。使用配置处理，您可以通过以下方式访问配置值：" class="headerlink" title="虽然您可以手动管理合并不同的文件，但使用Config组件合并和验证配置值要好得多。使用配置处理，您可以通过以下方式访问配置值："></a>虽然您可以手动管理合并不同的文件，但使用Config组件合并和验证配置值要好得多。使用配置处理，您可以通过以下方式访问配置值：</h3><h4 id="创建configuration类"><a href="#创建configuration类" class="headerlink" title="创建configuration类"></a>创建configuration类</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"># src/Configuration.php</span><br><span class="line">&lt;?php</span><br><span class="line">namespace App\Mash;</span><br><span class="line"></span><br><span class="line">use Symfony\Component\Config\Definition\Builder\TreeBuilder;</span><br><span class="line">use Symfony\Component\Config\Definition\ConfigurationInterface;</span><br><span class="line">use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;</span><br><span class="line"></span><br><span class="line">class Configuration implements ConfigurationInterface</span><br><span class="line">&#123;</span><br><span class="line">    public function getConfigTreeBuilder()</span><br><span class="line">    &#123;</span><br><span class="line">        $treeBuilder = $treeBuilder = new TreeBuilder(&apos;config&apos;); // load config.yaml</span><br><span class="line"></span><br><span class="line">        $treeBuilder-&gt;getRootNode()</span><br><span class="line">            -&gt;children()</span><br><span class="line">                -&gt;scalarNode(&apos;foo&apos;)-&gt;end()</span><br><span class="line">                -&gt;scalarNode(&apos;bar&apos;)-&gt;end()</span><br><span class="line">            -&gt;end();</span><br><span class="line">        return $treeBuilder;</span><br><span class="line"></span><br><span class="line">        // or 加载mash.yaml</span><br><span class="line">        $treeBuilder = $treeBuilder = new TreeBuilder(&apos;mash&apos;);</span><br><span class="line"></span><br><span class="line">        $treeBuilder-&gt;getRootNode()</span><br><span class="line">            -&gt;children()</span><br><span class="line">                -&gt;scalarNode(&apos;foo&apos;)-&gt;end()</span><br><span class="line">                -&gt;scalarNode(&apos;bar&apos;)-&gt;end()</span><br><span class="line">            -&gt;end();</span><br><span class="line">        return $treeBuilder;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="配置config-yaml"><a href="#配置config-yaml" class="headerlink" title="配置config.yaml"></a>配置config.yaml</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># src/config/config.yaml</span><br><span class="line">mash:</span><br><span class="line">  foo: fooValue1</span><br><span class="line">  bar: barValue2</span><br><span class="line">#### or</span><br></pre></td></tr></table></figure>
+<h4 id="MashExtension-php内容变化"><a href="#MashExtension-php内容变化" class="headerlink" title="MashExtension.php内容变化"></a>MashExtension.php内容变化</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"># src/MashExtension.php</span><br><span class="line">use App\Mash\Configuration;</span><br><span class="line"></span><br><span class="line">public function load(array $configs, ContainerBuilder $container)</span><br><span class="line">&#123;</span><br><span class="line">    $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . &apos;/config&apos;));</span><br><span class="line">    $loader-&gt;load(&apos;services.yaml&apos;);</span><br><span class="line">    </span><br><span class="line">    /**</span><br><span class="line">        * 此时 已经从编译容器处获得了外部配置参数</span><br><span class="line">        * 上面加载了服务 可以处理服务参数了</span><br><span class="line">        */</span><br><span class="line">    //var_dump($configs);exit;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">        *  array 0=&gt; [ &apos;foo&apos; =&gt; &apos;fooValue&apos;, &apos;bar&apos; =&gt; &apos;barValue&apos;]</span><br><span class="line">        * $foo = $configs[0][&apos;foo&apos;]; //fooValue $bar = $configs[0][&apos;bar&apos;]; //barValue</span><br><span class="line">        * 虽然您可以手动管理合并不同的文件，</span><br><span class="line">        * 但使用Config组件合并和验证配置值要好得多。</span><br><span class="line">        * 使用配置处理，您可以通过以下方式访问配置值：  </span><br><span class="line">        * use Symfony\Component\Config\Definition\Processor;      </span><br><span class="line">        */</span><br><span class="line"></span><br><span class="line">    $configuration = new Configuration();</span><br><span class="line">    $processor = new Processor();</span><br><span class="line">    $config = $processor-&gt;processConfiguration($configuration, $configs);</span><br><span class="line"></span><br><span class="line">    $foo = $config[&apos;foo&apos;]; //fooValue</span><br><span class="line">    $bar = $config[&apos;bar&apos;]; //barValue</span><br><span class="line"></span><br><span class="line">    $container-&gt;setParameter(&apos;mailer.foo&apos;, $foo);</span><br><span class="line">    var_dump($config);exit;</span><br><span class="line"></span><br><span class="line">    if ($config[&apos;advanced&apos;]) &#123;</span><br><span class="line">        $loader-&gt;load(&apos;advanced.yaml&apos;); # 加载其他服务定义文件</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="在实现以下load-方法之前，Extension可以在调用方法-之前添加任何Bundle的配置PrependExtensionInterface："><a href="#在实现以下load-方法之前，Extension可以在调用方法-之前添加任何Bundle的配置PrependExtensionInterface：" class="headerlink" title="在实现以下load() 方法之前，Extension可以在调用方法 之前添加任何Bundle的配置PrependExtensionInterface："></a>在实现以下load() 方法之前，Extension可以在调用方法 之前添加任何Bundle的配置PrependExtensionInterface：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;</span><br><span class="line">// ...</span><br><span class="line"></span><br><span class="line">class AcmeDemoExtension implements ExtensionInterface, PrependExtensionInterface</span><br><span class="line">&#123;</span><br><span class="line">    // ...</span><br><span class="line"></span><br><span class="line">    public function prepend(ContainerBuilder $container)</span><br><span class="line">    &#123;</span><br><span class="line">        // ...</span><br><span class="line"></span><br><span class="line">        $container-&gt;prependExtensionConfig($name, $config);</span><br><span class="line">        /**</span><br><span class="line">         * $name  =&gt; service id</span><br><span class="line">         * $config =&gt; service id的相关配置         </span><br><span class="line">         */</span><br><span class="line">        // ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/symfony/" rel="tag"># symfony</a>
+          
+            <a href="/tags/di/" rel="tag"># di</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/symfony-dependencyinjection-component/" rel="next" title="symfony-dependencyinjection-component">
+                <i class="fa fa-chevron-left"></i> symfony-dependencyinjection-component
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/如何在symfony控制器添加之前之后的功能/" rel="prev" title="如何在symfony控制器添加之前之后的功能">
+                如何在symfony控制器添加之前之后的功能 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+  <div class="post-spread">
+    
+    <!--MOB SHARE BEGIN-->
+<div class="-mob-share-ui-button -mob-share-open">分享</div>
+<div class="-mob-share-ui" style="display: none">
+    <ul class="-mob-share-list">
+        <li class="-mob-share-weibo"><p>新浪微博</p></li>
+        <li class="-mob-share-tencentweibo"><p>腾讯微博</p></li>
+        <li class="-mob-share-qzone"><p>QQ空间</p></li>
+        <li class="-mob-share-qq"><p>QQ好友</p></li>
+        <li class="-mob-share-weixin"><p>微信</p></li>
+        <li class="-mob-share-douban"><p>豆瓣</p></li>
+        <li class="-mob-share-renren"><p>人人网</p></li>
+        <li class="-mob-share-kaixin"><p>开心网</p></li>
+        <li class="-mob-share-facebook"><p>Facebook</p></li>
+        <li class="-mob-share-twitter"><p>Twitter</p></li>
+        <li class="-mob-share-pocket"><p>Pocket</p></li>
+        <li class="-mob-share-google"><p>Google+</p></li>
+        <li class="-mob-share-youdao"><p>有道云笔记</p></li>
+        <li class="-mob-share-mingdao"><p>明道</p></li>
+        <li class="-mob-share-pengyou"><p>朋友网</p></li>
+        <li class="-mob-share-tumblr"><p>Tumblr</p></li>
+        <li class="-mob-share-instapaper"><p>Instapaper</p></li>
+        <li class="-mob-share-linkedin"><p>LinkedIn</p></li>
+    </ul>
+    <div class="-mob-share-close">取消</div>
+</div>
+<div class="-mob-share-ui-bg"></div>
+<script id="-mob-share" src="http://f1.webshare.mob.com/code/mob-share.js?appkey=2ab754fc30e82"></script>
+<!--MOB SHARE END-->
+    
+  </div>
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">mashui</p>
+              <div class="site-description motion-element" itemprop="description">马帅的博客</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">24</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">14</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建参数配置文件"><span class="nav-number">1.</span> <span class="nav-text">创建参数配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建扩展"><span class="nav-number">2.</span> <span class="nav-text">创建扩展</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#index-php-只有在编译容器时才处理其中的值"><span class="nav-number">3.</span> <span class="nav-text">index.php 只有在编译容器时才处理其中的值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#虽然您可以手动管理合并不同的文件，但使用Config组件合并和验证配置值要好得多。使用配置处理，您可以通过以下方式访问配置值："><span class="nav-number">4.</span> <span class="nav-text">虽然您可以手动管理合并不同的文件，但使用Config组件合并和验证配置值要好得多。使用配置处理，您可以通过以下方式访问配置值：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#创建configuration类"><span class="nav-number">4.1.</span> <span class="nav-text">创建configuration类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置config-yaml"><span class="nav-number">4.2.</span> <span class="nav-text">配置config.yaml</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MashExtension-php内容变化"><span class="nav-number">4.3.</span> <span class="nav-text">MashExtension.php内容变化</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在实现以下load-方法之前，Extension可以在调用方法-之前添加任何Bundle的配置PrependExtensionInterface："><span class="nav-number">5.</span> <span class="nav-text">在实现以下load() 方法之前，Extension可以在调用方法 之前添加任何Bundle的配置PrependExtensionInterface：</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">mashui</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.1.2</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/reading_progress/reading_progress.js"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.2"></script>
+
+  <script src="/js/motion.js?v=7.1.2"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.1.2"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.1.2"></script>
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.2"></script>
+<script src="/js/post-details.js?v=7.1.2"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.2"></script>
+
+
+  
+
+  
+
+  
+
+  
+  
+
+<script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
+
+
+
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+<script>
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: '4dvlr87DfUYTGxLs8YSgVpPG-gzGzoHsz',
+    appKey: 'D75I8i7CH3rcTJ3mBYgzPL2z',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: 'zh-cn' || 'zh-cn'
+  });
+</script>
+
+
+
+
+  
+
+
+  
+
+
+
+
+  
+  
+  <script>
+    
+    function addCount(Counter) {
+      var $visitors = $('.leancloud_visitors');
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+
+      Counter('get', '/classes/Counter', { where: JSON.stringify({ url }) })
+        .done(function({ results }) {
+          if (results.length > 0) {
+            var counter = results[0];
+            
+            Counter('put', '/classes/Counter/' + counter.objectId, JSON.stringify({ time: { '__op': 'Increment', 'amount': 1 } }))
+            
+              .done(function() {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.time + 1);
+              })
+            
+              .fail(function ({ responseJSON }) {
+                console.log('Failed to save Visitor num, with error message: ' + responseJSON.error);
+              })
+          } else {
+            
+              Counter('post', '/classes/Counter', JSON.stringify({ title: title, url: url, time: 1 }))
+                .done(function() {
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(1);
+                })
+                .fail(function() {
+                  console.log('Failed to create');
+                });
+            
+          }
+        })
+        .fail(function ({ responseJSON }) {
+          console.log('LeanCloud Counter Error: ' + responseJSON.code + ' ' + responseJSON.error);
+        });
+    }
+    
+
+    $(function() {
+      $.get('https://app-router.leancloud.cn/2/route?appId=' + '4dvlr87DfUYTGxLs8YSgVpPG-gzGzoHsz')
+        .done(function({ api_server }) {
+          var Counter = function(method, url, data) {
+            return $.ajax({
+              method: method,
+              url: 'https://' + api_server + '/1.1' + url,
+              headers: {
+                'X-LC-Id': '4dvlr87DfUYTGxLs8YSgVpPG-gzGzoHsz',
+                'X-LC-Key': 'D75I8i7CH3rcTJ3mBYgzPL2z',
+                'Content-Type': 'application/json',
+              },
+              data: data
+            });
+          };
+          
+            addCount(Counter);
+          
+        });
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

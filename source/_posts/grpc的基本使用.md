@@ -7,7 +7,9 @@ categories: grpc
 ---
 ### grpc安装 见文档
 ### 使用go初始化项目
-``` go mod init grpcc ```
+``` 
+go mod init grpcc
+```
 ### 创建proto文件 ProductInfo.proto
 ```
 syntax = "proto3";
